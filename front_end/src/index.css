@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-header{
+/* header{
   background-color: #404040;
   padding: 1rem;
   text-decoration: none;
@@ -15,7 +15,7 @@ header{
 header a{
   text-decoration: none;
   color: white;
-}
+} */
 .site-container {
   min-height: 100vh;
 }
