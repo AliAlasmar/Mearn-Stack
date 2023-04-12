@@ -3,37 +3,39 @@ import { Link } from 'react-router-dom'
 import data from '../Data/data'
 import { useState , useEffect} from 'react'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import Reducer from '../Store/Reducer'
+import { getProduct } from '../Store/action'
+
+
+
 function HomeScreen() {
-    let [product , setProduct] = useState({
-        products : []
-    })
+    const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
 
-    async function getproduct() {
-      
-        //  const response = fetch('http://localhost:3001/api1/product')
-          fetch('http://localhost:3001/api1/product')
-      .then(response => response.json())
-      .then(json =>{
-         console.log(json)
-         setProduct({
-            products : json
-         })
-      }
-         )
-       
-          .catch(err => console.log(err))
-        
-      }
+   console.log('products ='+ products)
 
-    useEffect(()=>{
-        getproduct()
-    },[])
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
     return (
         <div>
             List Product
             <h1>Feature Product</h1>
+            
+            
             <div className="products">
-                {product.products.map((product) => (
+                {products&& products.map((product) => (
                     <div className="product" key={product.slug}>
                         <Link  to={`/product/${product.slug}`}>
                             <img src={product.image} alt={product.name} />
