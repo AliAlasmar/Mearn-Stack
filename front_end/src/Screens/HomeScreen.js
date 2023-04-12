@@ -1,57 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import data from '../Data/data'
-import { useState , useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
-import Reducer from '../Store/Reducer'
 import { getProduct } from '../Store/action'
-
-
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Product from '../Components/Product'
 
 
 function HomeScreen() {
     const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
-  const loading = useSelector((state) => state.loading);
-  const error = useSelector((state) => state.error);
+    const products = useSelector((state) => state.products);
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
 
-   console.log('products ='+ products)
+    console.log('products =' + products)
 
-  useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(getProduct());
+    }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
     return (
         <div>
-            List Product
+
             <h1>Feature Product</h1>
-            
-            
+
+
             <div className="products">
-                {products&& products.map((product) => (
-                    <div className="product" key={product.slug}>
-                        <Link  to={`/product/${product.slug}`}>
-                            <img src={product.image} alt={product.name} />
-                        </Link >
-                        <div className="product-info">
-                            <Link  to={`/product/${product.slug}`}>
-                                <p>{product.name}</p>
-                            </Link >
-                            <p>
-                                <strong>$ {product.price}</strong>
-                            </p>
-                            <button>Add To Cart</button>
-                        </div>
-                    </div>
-                ))}
+                <Row>
+                    {products && products.map((product) => (
+                        <Col sm={6} md={4} lg={3} className='mb-3' key={product.slug}>
+                            <Product product={product}  />
+                        </Col>
+                    ))
+                    }
+                </Row>
             </div>
         </div>
     )
