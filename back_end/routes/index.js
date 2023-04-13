@@ -16,4 +16,11 @@ router.get('/api1/product/:slug', function (req, res, next) {
   res.json(product);
 });
 
+router.get('/api1/product_cart/:id', function (req, res, next) {
+  
+  const product = products.find(product => product._id == req.params.id)
+  
+  res.json(product);
+});
+
 module.exports = router;

@@ -20,6 +20,13 @@ export const getProductSuccess2 = (products) => {
   }
 }
 
+export const getCartItems = (products) => {
+  return {
+    type: 'GET_PRODUCT_CART',
+    payload: products
+  }
+}
+
 export const getProductFailure = (error) => {
   return {
     type: 'GET_PRODUCT_FAILURE',
@@ -50,6 +57,23 @@ export const getProductById = (id) => {
         const products = response.data;
         console.log('result from api' + products)
         dispatch(getProductSuccess2(products));
+        // dispatch(getCartItems(products));
+      })
+      .catch(error => {
+        const errorMsg = error.message;
+        dispatch(getProductFailure(errorMsg));
+      })
+  }
+}
+
+export const addCartItems = (id) => {
+  return (dispatch) => {
+    dispatch(getProductRequest());
+    axios.get('http://localhost:3001/api1/add_product/' + id)
+      .then(response => {
+        const products = response.data;
+        console.log('result from api' + products)
+        dispatch(getCartItems(products));
       })
       .catch(error => {
         const errorMsg = error.message;

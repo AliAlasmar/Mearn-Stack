@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import CounterCtxProvider from "./Context/CartContext";
+import SigninScreen from "./Screens/SigninScreen";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <CounterCtxProvider>
             <Routes>
               <Route path="/" element={<HomeScreen />} />
+              <Route path="/sigin" element={<SigninScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
             </Routes>
           </CounterCtxProvider>

@@ -3,6 +3,7 @@ import React from 'react'
 const initalState = {
  product:'',
   products: [],
+  cartItems: [],
   loading: true,
   error: null
 }
@@ -29,6 +30,15 @@ const Reducer = (state = initalState, action) => {
         product: action.payload,
         error: ''
       }
+
+      case 'GET_PRODUCT_CART':
+        return {
+          ...state,
+          loading: false,
+          cartItems: action.payload,
+          error: ''
+        }
+
     case 'GET_PRODUCT_FAILURE':
       return {
         loading: false,

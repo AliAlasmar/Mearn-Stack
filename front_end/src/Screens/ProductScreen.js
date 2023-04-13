@@ -98,7 +98,7 @@ function ProductScreen() {
                       {product.countInStock > 0 &&(
                         <ListGroup.Item>
                           <div className='d-grid'>
-                            <Button onClick={value.incressCounter} variant="primary">
+                            <Button onClick={()=>value.incressCounter(product._id)} variant="primary">
                               Add To Cart {value.counter.count}
                             </Button>
                           </div>
