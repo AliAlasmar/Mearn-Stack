@@ -1,12 +1,111 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
-function ProductScreen() {
+import { useEffect } from 'react';
+import { getProductById } from '../Store/action';
+import Badge from 'react-bootstrap/Badge'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Rating from '../Components/Rating';
+import Button from 'react-bootstrap/Button';
+import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import { Helmet } from 'react-helmet-async';
 
-    let {slug} = useParams()
+
+function ProductScreen() {
+  console.log()
+  let { slug } = useParams()
+
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.product);
+  const products = useSelector((state) => state.products);
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
+
+  useEffect(() => {
+    dispatch(getProductById(slug));
+  }, [dispatch]);
+
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
 
     <div>
-      <h2>{slug}</h2>
+      <div className="products">
+        <Row>
+          <Col md={6}>
+            <img className='img-large' src={product.image} />
+          </Col>
+          <Col md={3}>
+            <ListGroup variant="flush">
+              <Helmet>
+                <title>{product.name}</title>
+              </Helmet>
+              <ListGroup.Item>
+                <h1>{product.name}</h1>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Rating rating={product.rating} numReviews={product.numReviews} />
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                price : {product.price}$
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                Description :
+                <p>{product.description}</p>
+              </ListGroup.Item>
+
+            </ListGroup>
+          </Col>
+          <Col md={3}>
+            <br />
+            <Card>
+              <Card.Body>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price :</Col>
+                    <Col>{product.price}$</Col>
+                  </Row>
+                </ListGroup.Item>
+                <hr />
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status :</Col>
+                    <Col>
+                      {product.countInStock > 0 ?
+                        <Badge bg="success">In Stocke</Badge> :
+                        <Badge bg="danger">Unavilable</Badge>}</Col>
+                  </Row>
+                  <br/>
+                </ListGroup.Item>
+                          
+                      {product.countInStock > 0 &&(
+                        <ListGroup.Item>
+                          <div className='d-grid'>
+                            <Button variant="primary">
+                              Add To Cart
+                            </Button>
+                          </div>
+                        </ListGroup.Item>
+                      )}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     </div>
   )
 }

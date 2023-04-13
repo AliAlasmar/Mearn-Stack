@@ -6,6 +6,8 @@ import { getProduct } from '../Store/action'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Product from '../Components/Product'
+import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 
 function HomeScreen() {
@@ -13,12 +15,13 @@ function HomeScreen() {
     const products = useSelector((state) => state.products);
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
-
+    const location = useLocation();
     console.log('products =' + products)
 
     useEffect(() => {
         dispatch(getProduct());
-    }, [dispatch]);
+        // dispatch(getProduct());
+    }, [ location,dispatch]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -29,7 +32,9 @@ function HomeScreen() {
     }
     return (
         <div>
-
+     <Helmet>
+        <title>Amazona</title>
+     </Helmet>
             <h1>Feature Product</h1>
 
 

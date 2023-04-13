@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { getProduct } from './Store/action';
 import Reducer from './Store/Reducer';
 import thunk from 'redux-thunk';
+import {HelmetProvider} from 'react-helmet-async'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -24,7 +25,10 @@ root.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-      <App />
+        <HelmetProvider>
+        <App />
+        </HelmetProvider>
+      
       </Provider>
     
     </Router>

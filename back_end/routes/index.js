@@ -9,4 +9,11 @@ router.get('/api1/product', function (req, res, next) {
   res.json(products);
 });
 
+router.get('/api1/product/:slug', function (req, res, next) {
+  
+  const product = products.find(product => product.slug == req.params.slug)
+  
+  res.json(product);
+});
+
 module.exports = router;

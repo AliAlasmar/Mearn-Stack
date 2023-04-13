@@ -1,14 +1,15 @@
 import React from 'react'
 
 const initalState = {
-    products: [],
-    loading: true,
-    error: null
+ product:'',
+  products: [],
+  loading: true,
+  error: null
 }
 
 const Reducer = (state = initalState, action) => {
-   
-  switch(action.type) {
+
+  switch (action.type) {
     case 'GET_PRODUCT_REQUEST':
       return {
         ...state,
@@ -16,8 +17,16 @@ const Reducer = (state = initalState, action) => {
       }
     case 'GET_PRODUCT_SUCCESS':
       return {
+        ...state,
         loading: false,
         products: action.payload,
+        error: ''
+      }
+    case 'GET_PRODUCT_SUCCESS2':
+      return {
+        ...state,
+        loading: false,
+        product: action.payload,
         error: ''
       }
     case 'GET_PRODUCT_FAILURE':
