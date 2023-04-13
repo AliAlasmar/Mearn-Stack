@@ -8,9 +8,12 @@ import Col from 'react-bootstrap/Col'
 import Product from '../Components/Product'
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-
+import { useContext } from 'react'
+import { CounterCtx } from '../Context/CartContext';
 
 function HomeScreen() {
+    let value = useContext(CounterCtx)
+    console.log('context :'+ value.counter.count)
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products);
     const loading = useSelector((state) => state.loading);
@@ -20,6 +23,7 @@ function HomeScreen() {
 
     useEffect(() => {
         dispatch(getProduct());
+       
         // dispatch(getProduct());
     }, [ location,dispatch]);
 

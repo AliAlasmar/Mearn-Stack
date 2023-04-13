@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import { useEffect } from 'react';
@@ -12,10 +12,13 @@ import Rating from '../Components/Rating';
 import Button from 'react-bootstrap/Button';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import { Helmet } from 'react-helmet-async';
+import { CounterCtx } from '../Context/CartContext';
+
 
 
 function ProductScreen() {
   console.log()
+  let value = useContext(CounterCtx)
   let { slug } = useParams()
 
   const dispatch = useDispatch();
@@ -95,8 +98,8 @@ function ProductScreen() {
                       {product.countInStock > 0 &&(
                         <ListGroup.Item>
                           <div className='d-grid'>
-                            <Button variant="primary">
-                              Add To Cart
+                            <Button onClick={value.incressCounter} variant="primary">
+                              Add To Cart {value.counter.count}
                             </Button>
                           </div>
                         </ListGroup.Item>

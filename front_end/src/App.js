@@ -6,6 +6,7 @@ import ProductScreen from "./Screens/ProductScreen";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
+import CounterCtxProvider from "./Context/CartContext";
 
 function App() {
   return (
@@ -13,24 +14,28 @@ function App() {
       <header className="">
         {/* <Link to="/">Amazona</Link> */}
         <Navbar bg="dark" variant="dark">
-              <Container>
-                <LinkContainer to="/">
-                  <Navbar.Brand> Amazona</Navbar.Brand>
-                </LinkContainer>
-              </Container>
-          </Navbar>
+          <Container>
+            <LinkContainer to="/">
+              <Navbar.Brand> Amazona</Navbar.Brand>
+            </LinkContainer>
+          </Container>
+        </Navbar>
       </header>
 
       <main>
         <Container>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/product/:slug" element={<ProductScreen />} />
-        </Routes>
+          <CounterCtxProvider>
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/product/:slug" element={<ProductScreen />} />
+            </Routes>
+          </CounterCtxProvider>
         </Container>
       </main>
       <footer className="text-center">
-        <div className="text-center"><center >Copyright @ 2023</center></div>
+        <div className="text-center">
+          <center>Copyright @ 2023</center>
+        </div>
       </footer>
     </div>
   );
